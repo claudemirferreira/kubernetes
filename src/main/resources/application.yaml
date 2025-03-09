@@ -2,13 +2,25 @@ spring:
   application:
   name: kubernetes
 
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/my_database?useSSL=false&serverTimezone=UTC
+    username: root
+    password: U0oySay28H
+
+  jpa:
+    show-sql: true
+    database: mysql
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+
 springdoc:
   api-docs:
     enabled: true
   swagger-ui:
     enabled: true
     path: /swagger-ui.html
-
 
 server:
   servlet:

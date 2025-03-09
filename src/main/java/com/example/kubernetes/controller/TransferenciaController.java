@@ -1,24 +1,30 @@
 package com.example.kubernetes.controller;
 
+import com.example.kubernetes.entity.Conta;
+import com.example.kubernetes.service.ContaService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/transferencia")
 public class TransferenciaController {
 
-    private List<String> list = new ArrayList<>();
+    private final ContaService contaService;
+
+    public TransferenciaController(ContaService contaService) {
+        this.contaService = contaService;
+    }
 
     @GetMapping
-    public List<String> getTransferencia() {
-        return list;
+    public List<Conta> get() {
+        return contaService.listAll();
     }
 
     @PostMapping
-    public String addClient(@RequestBody String client) {
-        list.add(client);
-        return "Client added new: " + client;
+    public ResponseEntity<Conta> add(@RequestBody Conta conta) {
+        var entity = contaService.save(conta);
+        return ResponseEntity.ok(entity);
     }
 }
